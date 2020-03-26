@@ -16,5 +16,12 @@
 				}
 			}
 		}
+	},
+	"auth": {
+		"hackcare4c06825b": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
 	}
 }

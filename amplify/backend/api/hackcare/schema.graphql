@@ -1,10 +1,12 @@
-type User @model @key(name: "byUserID", fields: ["id"]) {
-  id: ID!
+type User @model @key(fields: ["email"]) {
+  email: String!
   firstName: String!
   lastName: String!
   title: Titles!
   occupation: String!
-  events: [Event] @connection(keyName: "byEventID", fields: ["id"])
+  description: String
+  image: AWSURL
+  events: [Event] @connection(keyName: "byUser", fields: ["email"])
 }
 
 enum Titles {
@@ -16,9 +18,9 @@ enum Titles {
   MS
 }
 
-type Event @model @key(name: "byEventID", fields: ["id"]) {
+type Event @model @key(fields: ["time"]) @key(name: "byUser", fields: ["hostEmail", "time"], queryField: "eventsByHost") {
   id: ID!
-  host: User! @connection(fields: ["id"])
+  hostEmail: String!
   time: AWSTime!
   duration: AWSTime!
   link: AWSURL!

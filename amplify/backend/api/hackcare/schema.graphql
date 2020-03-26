@@ -1,0 +1,27 @@
+type User @model @key(name: "byUserID", fields: ["id"]) {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  title: Titles!
+  occupation: String!
+  events: [Event] @connection(keyName: "byEventID", fields: ["id"])
+}
+
+enum Titles {
+  MR
+  MRS
+  MISS
+  DR
+  MDM
+  MS
+}
+
+type Event @model @key(name: "byEventID", fields: ["id"]) {
+  id: ID!
+  host: User! @connection(fields: ["id"])
+  time: AWSTime!
+  duration: AWSTime!
+  link: AWSURL!
+  topic: String!
+  description: String!
+}

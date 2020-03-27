@@ -12,17 +12,13 @@ export const createUser = /* GraphQL */ `
       lastName
       title
       occupation
-      description
-      image
-      events {
+      intro
+      profilePicture
+      lessonSeries {
         items {
           id
+          seriesID
           hostEmail
-          time
-          duration
-          link
-          topic
-          description
         }
         nextToken
       }
@@ -40,17 +36,13 @@ export const updateUser = /* GraphQL */ `
       lastName
       title
       occupation
-      description
-      image
-      events {
+      intro
+      profilePicture
+      lessonSeries {
         items {
           id
+          seriesID
           hostEmail
-          time
-          duration
-          link
-          topic
-          description
         }
         nextToken
       }
@@ -68,15 +60,150 @@ export const deleteUser = /* GraphQL */ `
       lastName
       title
       occupation
-      description
-      image
-      events {
+      intro
+      profilePicture
+      lessonSeries {
         items {
           id
+          seriesID
           hostEmail
-          time
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const createSeriesEditor = /* GraphQL */ `
+  mutation CreateSeriesEditor(
+    $input: CreateSeriesEditorInput!
+    $condition: ModelSeriesEditorConditionInput
+  ) {
+    createSeriesEditor(input: $input, condition: $condition) {
+      id
+      seriesID
+      hostEmail
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
+      host {
+        email
+        firstName
+        lastName
+        title
+        occupation
+        intro
+        profilePicture
+        lessonSeries {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const updateSeriesEditor = /* GraphQL */ `
+  mutation UpdateSeriesEditor(
+    $input: UpdateSeriesEditorInput!
+    $condition: ModelSeriesEditorConditionInput
+  ) {
+    updateSeriesEditor(input: $input, condition: $condition) {
+      id
+      seriesID
+      hostEmail
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
+      host {
+        email
+        firstName
+        lastName
+        title
+        occupation
+        intro
+        profilePicture
+        lessonSeries {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const deleteSeriesEditor = /* GraphQL */ `
+  mutation DeleteSeriesEditor(
+    $input: DeleteSeriesEditorInput!
+    $condition: ModelSeriesEditorConditionInput
+  ) {
+    deleteSeriesEditor(input: $input, condition: $condition) {
+      id
+      seriesID
+      hostEmail
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
+      host {
+        email
+        firstName
+        lastName
+        title
+        occupation
+        intro
+        profilePicture
+        lessonSeries {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const createSeries = /* GraphQL */ `
+  mutation CreateSeries(
+    $input: CreateSeriesInput!
+    $condition: ModelSeriesConditionInput
+  ) {
+    createSeries(input: $input, condition: $condition) {
+      id
+      hostEmails {
+        items {
+          id
+          seriesID
+          hostEmail
+        }
+        nextToken
+      }
+      topic
+      description
+      lessons {
+        items {
+          id
+          seriesID
+          hostEmail
+          dateTime
           duration
           link
+          topicClass
           topic
           description
         }
@@ -85,49 +212,156 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
-export const createEvent = /* GraphQL */ `
-  mutation CreateEvent(
-    $input: CreateEventInput!
-    $condition: ModelEventConditionInput
+export const updateSeries = /* GraphQL */ `
+  mutation UpdateSeries(
+    $input: UpdateSeriesInput!
+    $condition: ModelSeriesConditionInput
   ) {
-    createEvent(input: $input, condition: $condition) {
+    updateSeries(input: $input, condition: $condition) {
       id
+      hostEmails {
+        items {
+          id
+          seriesID
+          hostEmail
+        }
+        nextToken
+      }
+      topic
+      description
+      lessons {
+        items {
+          id
+          seriesID
+          hostEmail
+          dateTime
+          duration
+          link
+          topicClass
+          topic
+          description
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const deleteSeries = /* GraphQL */ `
+  mutation DeleteSeries(
+    $input: DeleteSeriesInput!
+    $condition: ModelSeriesConditionInput
+  ) {
+    deleteSeries(input: $input, condition: $condition) {
+      id
+      hostEmails {
+        items {
+          id
+          seriesID
+          hostEmail
+        }
+        nextToken
+      }
+      topic
+      description
+      lessons {
+        items {
+          id
+          seriesID
+          hostEmail
+          dateTime
+          duration
+          link
+          topicClass
+          topic
+          description
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const createLesson = /* GraphQL */ `
+  mutation CreateLesson(
+    $input: CreateLessonInput!
+    $condition: ModelLessonConditionInput
+  ) {
+    createLesson(input: $input, condition: $condition) {
+      id
+      seriesID
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
       hostEmail
-      time
+      dateTime
       duration
       link
+      topicClass
       topic
       description
     }
   }
 `;
-export const updateEvent = /* GraphQL */ `
-  mutation UpdateEvent(
-    $input: UpdateEventInput!
-    $condition: ModelEventConditionInput
+export const updateLesson = /* GraphQL */ `
+  mutation UpdateLesson(
+    $input: UpdateLessonInput!
+    $condition: ModelLessonConditionInput
   ) {
-    updateEvent(input: $input, condition: $condition) {
+    updateLesson(input: $input, condition: $condition) {
       id
+      seriesID
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
       hostEmail
-      time
+      dateTime
       duration
       link
+      topicClass
       topic
       description
     }
   }
 `;
-export const deleteEvent = /* GraphQL */ `
-  mutation DeleteEvent(
-    $input: DeleteEventInput!
-    $condition: ModelEventConditionInput
+export const deleteLesson = /* GraphQL */ `
+  mutation DeleteLesson(
+    $input: DeleteLessonInput!
+    $condition: ModelLessonConditionInput
   ) {
-    deleteEvent(input: $input, condition: $condition) {
+    deleteLesson(input: $input, condition: $condition) {
       id
+      seriesID
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
       hostEmail
-      time
+      dateTime
       duration
       link
+      topicClass
       topic
       description
     }

@@ -44,12 +44,26 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
-    "triggers": "{}",
+    "useDefault": "manual",
+    "triggers": "{\"PostConfirmation\":[\"custom\"]}",
     "userPoolGroupList": [],
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": []
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "hackcare4c06825bPostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "hostedUI": false
 }

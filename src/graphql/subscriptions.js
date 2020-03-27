@@ -9,17 +9,13 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       title
       occupation
-      description
-      image
-      events {
+      intro
+      profilePicture
+      lessonSeries {
         items {
           id
+          seriesID
           hostEmail
-          time
-          duration
-          link
-          topic
-          description
         }
         nextToken
       }
@@ -34,17 +30,13 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       title
       occupation
-      description
-      image
-      events {
+      intro
+      profilePicture
+      lessonSeries {
         items {
           id
+          seriesID
           hostEmail
-          time
-          duration
-          link
-          topic
-          description
         }
         nextToken
       }
@@ -59,15 +51,138 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       title
       occupation
-      description
-      image
-      events {
+      intro
+      profilePicture
+      lessonSeries {
         items {
           id
+          seriesID
           hostEmail
-          time
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const onCreateSeriesEditor = /* GraphQL */ `
+  subscription OnCreateSeriesEditor {
+    onCreateSeriesEditor {
+      id
+      seriesID
+      hostEmail
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
+      host {
+        email
+        firstName
+        lastName
+        title
+        occupation
+        intro
+        profilePicture
+        lessonSeries {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onUpdateSeriesEditor = /* GraphQL */ `
+  subscription OnUpdateSeriesEditor {
+    onUpdateSeriesEditor {
+      id
+      seriesID
+      hostEmail
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
+      host {
+        email
+        firstName
+        lastName
+        title
+        occupation
+        intro
+        profilePicture
+        lessonSeries {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onDeleteSeriesEditor = /* GraphQL */ `
+  subscription OnDeleteSeriesEditor {
+    onDeleteSeriesEditor {
+      id
+      seriesID
+      hostEmail
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
+      host {
+        email
+        firstName
+        lastName
+        title
+        occupation
+        intro
+        profilePicture
+        lessonSeries {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onCreateSeries = /* GraphQL */ `
+  subscription OnCreateSeries {
+    onCreateSeries {
+      id
+      hostEmails {
+        items {
+          id
+          seriesID
+          hostEmail
+        }
+        nextToken
+      }
+      topic
+      description
+      lessons {
+        items {
+          id
+          seriesID
+          hostEmail
+          dateTime
           duration
           link
+          topicClass
           topic
           description
         }
@@ -76,40 +191,141 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
-export const onCreateEvent = /* GraphQL */ `
-  subscription OnCreateEvent {
-    onCreateEvent {
+export const onUpdateSeries = /* GraphQL */ `
+  subscription OnUpdateSeries {
+    onUpdateSeries {
       id
+      hostEmails {
+        items {
+          id
+          seriesID
+          hostEmail
+        }
+        nextToken
+      }
+      topic
+      description
+      lessons {
+        items {
+          id
+          seriesID
+          hostEmail
+          dateTime
+          duration
+          link
+          topicClass
+          topic
+          description
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const onDeleteSeries = /* GraphQL */ `
+  subscription OnDeleteSeries {
+    onDeleteSeries {
+      id
+      hostEmails {
+        items {
+          id
+          seriesID
+          hostEmail
+        }
+        nextToken
+      }
+      topic
+      description
+      lessons {
+        items {
+          id
+          seriesID
+          hostEmail
+          dateTime
+          duration
+          link
+          topicClass
+          topic
+          description
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const onCreateLesson = /* GraphQL */ `
+  subscription OnCreateLesson {
+    onCreateLesson {
+      id
+      seriesID
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
       hostEmail
-      time
+      dateTime
       duration
       link
+      topicClass
       topic
       description
     }
   }
 `;
-export const onUpdateEvent = /* GraphQL */ `
-  subscription OnUpdateEvent {
-    onUpdateEvent {
+export const onUpdateLesson = /* GraphQL */ `
+  subscription OnUpdateLesson {
+    onUpdateLesson {
       id
+      seriesID
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
       hostEmail
-      time
+      dateTime
       duration
       link
+      topicClass
       topic
       description
     }
   }
 `;
-export const onDeleteEvent = /* GraphQL */ `
-  subscription OnDeleteEvent {
-    onDeleteEvent {
+export const onDeleteLesson = /* GraphQL */ `
+  subscription OnDeleteLesson {
+    onDeleteLesson {
       id
+      seriesID
+      series {
+        id
+        hostEmails {
+          nextToken
+        }
+        topic
+        description
+        lessons {
+          nextToken
+        }
+      }
       hostEmail
-      time
+      dateTime
       duration
       link
+      topicClass
       topic
       description
     }

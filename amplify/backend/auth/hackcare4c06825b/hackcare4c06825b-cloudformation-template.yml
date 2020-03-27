@@ -9,6 +9,18 @@ Parameters:
     Type: String
   
   
+  
+  
+  functionhackcare4c06825bPostConfirmationArn: 
+    Type: String
+    Default: functionhackcare4c06825bPostConfirmationArn
+  
+  functionhackcare4c06825bPostConfirmationName: 
+    Type: String
+    Default: functionhackcare4c06825bPostConfirmationName
+  
+  
+  
 
     
   identityPoolName:
@@ -88,7 +100,7 @@ Parameters:
                       
   userPoolGroupList:
     Type: CommaDelimitedList
-                        
+            
   parentStack:
     Type: String
                 
@@ -97,7 +109,19 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-    
+        
+  thirdPartyAuth:
+    Type: String
+              
+  userPoolGroups:
+    Type: String
+              
+  adminQueries:
+    Type: String
+              
+  hostedUI:
+    Type: String
+                      
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -151,6 +175,19 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+          PostConfirmation: !Ref functionhackcare4c06825bPostConfirmationArn
+        
+        
+        
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -177,6 +214,15 @@ Resources:
     
   
     
+  
+  UserPoolPostConfirmationLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionhackcare4c06825bPostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
     
   
   

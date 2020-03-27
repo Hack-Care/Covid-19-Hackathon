@@ -37,6 +37,18 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"apihackcareGraphQLAPIIdOutput": {
+			"Type": "String",
+			"Default": "apihackcareGraphQLAPIIdOutput"
+		},
+		"apihackcareGraphQLAPIEndpointOutput": {
+			"Type": "String",
+			"Default": "apihackcareGraphQLAPIEndpointOutput"
+		},
+		"apihackcareGraphQLAPIKeyOutput": {
+			"Type": "String",
+			"Default": "apihackcareGraphQLAPIKeyOutput"
 		}
 	},
 	"Conditions": {
@@ -89,6 +101,15 @@
 						},
 						"GROUP": {
 							"Ref": "GROUP"
+						},
+						"API_HACKCARE_GRAPHQLAPIIDOUTPUT": {
+							"Ref": "apihackcareGraphQLAPIIdOutput"
+						},
+						"API_HACKCARE_GRAPHQLAPIENDPOINTOUTPUT": {
+							"Ref": "apihackcareGraphQLAPIEndpointOutput"
+						},
+						"API_HACKCARE_GRAPHQLAPIKEYOUTPUT": {
+							"Ref": "apihackcareGraphQLAPIKeyOutput"
 						}
 					}
 				},
@@ -102,7 +123,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-hack-care-dev-13834-deployment",
-					"S3Key": "amplify-builds/hackcare4c06825bPostConfirmation-73336b4a4d4b7578654e-build.zip"
+					"S3Key": "amplify-builds/hackcare4c06825bPostConfirmation-6b3032534d2f376a6149-build.zip"
 				}
 			}
 		},
@@ -183,6 +204,57 @@
 									}
 								]
 							}
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"appsync:Create*",
+								"appsync:Update*",
+								"appsync:Get*",
+								"appsync:StartSchemaCreation",
+								"appsync:GraphQL"
+							],
+							"Resource": [
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:appsync:",
+											{
+												"Ref": "AWS::Region"
+											},
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
+											":apis/",
+											{
+												"Ref": "apihackcareGraphQLAPIIdOutput"
+											},
+											"/*"
+										]
+									]
+								}
+							]
 						}
 					]
 				}

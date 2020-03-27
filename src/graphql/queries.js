@@ -1,34 +1,71 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const syncUsers = /* GraphQL */ `
+  query SyncUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        email
+        firstName
+        lastName
+        title
+        occupation
+        intro
+        profilePicture
+        lessonSeries {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
-  query GetUser($email: String!) {
+  query GetUser($email: AWSEmail!) {
     getUser(email: $email) {
       email
       firstName
       lastName
       title
       occupation
-      description
-      image
-      events {
+      intro
+      profilePicture
+      lessonSeries {
         items {
           id
+          seriesID
           hostEmail
-          time
-          duration
-          link
-          topic
-          description
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const listUsers = /* GraphQL */ `
   query ListUsers(
-    $email: String
+    $email: AWSEmail
     $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
@@ -47,39 +84,255 @@ export const listUsers = /* GraphQL */ `
         lastName
         title
         occupation
-        description
-        image
-        events {
+        intro
+        profilePicture
+        lessonSeries {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
-export const getEvent = /* GraphQL */ `
-  query GetEvent($time: AWSTime!) {
-    getEvent(time: $time) {
+export const syncSeriesEditors = /* GraphQL */ `
+  query SyncSeriesEditors(
+    $filter: ModelSeriesEditorFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncSeriesEditors(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        seriesID
+        hostEmail
+        series {
+          id
+          topic
+          description
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        host {
+          email
+          firstName
+          lastName
+          title
+          occupation
+          intro
+          profilePicture
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncSeries = /* GraphQL */ `
+  query SyncSeries(
+    $filter: ModelSeriesFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncSeries(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        hostEmails {
+          nextToken
+          startedAt
+        }
+        topic
+        description
+        lessons {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getSeries = /* GraphQL */ `
+  query GetSeries($id: ID!) {
+    getSeries(id: $id) {
       id
-      hostEmail
-      time
-      duration
-      link
+      hostEmails {
+        items {
+          id
+          seriesID
+          hostEmail
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       topic
       description
+      lessons {
+        items {
+          id
+          seriesID
+          hostEmail
+          dateTime
+          duration
+          link
+          topicClass
+          topic
+          description
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
-export const listEvents = /* GraphQL */ `
-  query ListEvents(
-    $time: AWSTime
-    $filter: ModelEventFilterInput
+export const listSeriess = /* GraphQL */ `
+  query ListSeriess(
+    $filter: ModelSeriesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSeriess(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        hostEmails {
+          nextToken
+          startedAt
+        }
+        topic
+        description
+        lessons {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncLessons = /* GraphQL */ `
+  query SyncLessons(
+    $filter: ModelLessonFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncLessons(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        seriesID
+        series {
+          id
+          topic
+          description
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        hostEmail
+        dateTime
+        duration
+        link
+        topicClass
+        topic
+        description
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getLesson = /* GraphQL */ `
+  query GetLesson($dateTime: AWSDateTime!) {
+    getLesson(dateTime: $dateTime) {
+      id
+      seriesID
+      series {
+        id
+        hostEmails {
+          nextToken
+          startedAt
+        }
+        topic
+        description
+        lessons {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      hostEmail
+      dateTime
+      duration
+      link
+      topicClass
+      topic
+      description
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listLessons = /* GraphQL */ `
+  query ListLessons(
+    $dateTime: AWSDateTime
+    $filter: ModelLessonFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
-    listEvents(
-      time: $time
+    listLessons(
+      dateTime: $dateTime
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -87,29 +340,87 @@ export const listEvents = /* GraphQL */ `
     ) {
       items {
         id
+        seriesID
+        series {
+          id
+          topic
+          description
+          _version
+          _deleted
+          _lastChangedAt
+        }
         hostEmail
-        time
+        dateTime
         duration
         link
+        topicClass
         topic
         description
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
-export const eventsByHost = /* GraphQL */ `
-  query EventsByHost(
-    $hostEmail: String
-    $time: ModelStringKeyConditionInput
+export const eventsBySeries = /* GraphQL */ `
+  query EventsBySeries(
+    $seriesID: ID
+    $dateTime: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelEventFilterInput
+    $filter: ModelLessonFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    eventsByHost(
+    eventsBySeries(
+      seriesID: $seriesID
+      dateTime: $dateTime
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        seriesID
+        series {
+          id
+          topic
+          description
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        hostEmail
+        dateTime
+        duration
+        link
+        topicClass
+        topic
+        description
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const eventsByUser = /* GraphQL */ `
+  query EventsByUser(
+    $hostEmail: AWSEmail
+    $dateTime: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLessonFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    eventsByUser(
       hostEmail: $hostEmail
-      time: $time
+      dateTime: $dateTime
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -117,14 +428,28 @@ export const eventsByHost = /* GraphQL */ `
     ) {
       items {
         id
+        seriesID
+        series {
+          id
+          topic
+          description
+          _version
+          _deleted
+          _lastChangedAt
+        }
         hostEmail
-        time
+        dateTime
         duration
         link
+        topicClass
         topic
         description
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;

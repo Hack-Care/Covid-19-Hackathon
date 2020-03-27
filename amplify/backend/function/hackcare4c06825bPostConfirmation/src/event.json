@@ -1,0 +1,7 @@
+{
+    "request": { 
+        "userAttributes": { 
+            "email": "test@example.com" 
+        } 
+    }
+}

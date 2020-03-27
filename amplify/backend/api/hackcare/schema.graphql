@@ -1,12 +1,47 @@
 type User @model @key(fields: ["email"]) {
-  email: String!
-  firstName: String!
-  lastName: String!
-  title: Titles!
-  occupation: String!
-  description: String
-  image: AWSURL
-  events: [Event] @connection(keyName: "byUser", fields: ["email"])
+  email: AWSEmail!
+  firstName: String
+  lastName: String
+  title: Titles
+  occupation: String
+  intro: String
+  profilePicture: AWSURL
+  lessonSeries: [SeriesEditor]! @connection(keyName: "byUser", fields: ["email"])
+}
+
+type SeriesEditor
+@model(queries: null)
+@key(name: "byUser", fields: ["hostEmail", "seriesID"])
+@key(name: "bySeriesID", fields: ["seriesID", "hostEmail"]) {
+  id: ID!
+  seriesID: ID!
+  hostEmail: AWSEmail!
+  series: Series! @connection(fields: ["seriesID"])
+  host: User! @connection(fields: ["hostEmail"])
+}
+
+type Series @model {
+  id: ID!
+  hostEmails: [SeriesEditor]! @connection(keyName: "bySeriesID", fields: ["id"])
+  topic: String!
+  description: String!
+  lessons: [Lesson]! @connection(keyName: "bySeries", fields: ["id"])
+}
+
+type Lesson @model
+@key(fields: ["dateTime"])
+@key(name: "bySeries", fields: ["seriesID", "dateTime"], queryField: "eventsBySeries")
+@key(name: "byUser", fields: ["hostEmail", "dateTime"], queryField: "eventsByUser") {
+  id: ID!
+  seriesID: ID!
+  series: Series @connection(fields: ["seriesID"])
+  hostEmail: AWSEmail!
+  dateTime: AWSDateTime!
+  duration: AWSTime!
+  link: AWSURL!
+  topicClass: String!
+  topic: String!
+  description: String!
 }
 
 enum Titles {
@@ -16,14 +51,4 @@ enum Titles {
   DR
   MDM
   MS
-}
-
-type Event @model @key(fields: ["time"]) @key(name: "byUser", fields: ["hostEmail", "time"], queryField: "eventsByHost") {
-  id: ID!
-  hostEmail: String!
-  time: AWSTime!
-  duration: AWSTime!
-  link: AWSURL!
-  topic: String!
-  description: String!
 }

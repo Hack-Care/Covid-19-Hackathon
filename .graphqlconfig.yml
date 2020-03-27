@@ -1,6 +1,6 @@
 projects:
   hackcare:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/hackcare/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:

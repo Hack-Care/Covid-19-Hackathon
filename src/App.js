@@ -1,4 +1,4 @@
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 import React from 'react';
@@ -8,6 +8,11 @@ import './App.css';
 Amplify.configure(awsconfig);
 
 function App() {
+  function signOut() {
+      Auth.signOut()
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -23,6 +28,9 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={signOut}>
+          Sign-out
+        </button>
       </header>
     </div>
   );

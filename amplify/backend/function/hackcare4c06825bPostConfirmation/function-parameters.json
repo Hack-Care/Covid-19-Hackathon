@@ -1,7 +1,7 @@
 {
     "trigger": true,
     "modules": [
-        "custom"
+        "saveToDb"
     ],
     "parentResource": "hackcare4c06825b",
     "functionName": "hackcare4c06825bPostConfirmation",
